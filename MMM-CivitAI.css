@@ -44,12 +44,12 @@
   }
   
   .civitai-message {
-    font-size: 18px; /* Adjust font size as needed */
+    font-size: 26px; /* Adjust font size as needed */
     color: white; /* Set the text color */
     position: absolute;
-    bottom: -5px;
+    bottom: 60px;
     text-align: center;
-    width: 100%;
+    width: 80%;
     z-index: 10;
   }
     

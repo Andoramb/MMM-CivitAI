@@ -49,7 +49,9 @@ Module.register("MMM-CivitAI", {
 		if (this.config.clearCacheOnStart) {
 			this.sendSocketNotification("CLEAR_CACHE");
 		} else {
+			this.currentIndex = 0; 
 			this.fetchPhoto();
+			this.scheduleUpdate();
 		}
 	},
 
@@ -95,6 +97,7 @@ Module.register("MMM-CivitAI", {
 				this.hideAlert(sender);
 				break;
 			case "FETCH_PHOTO":
+				this.currentIndex = (this.currentIndex + 1) % this.config.limit;
 				this.fetchPhoto();  
 				break;
 		}
@@ -126,17 +129,19 @@ Module.register("MMM-CivitAI", {
         var req = new XMLHttpRequest();
         var mod = this;
     
-        req.addEventListener("load", function() {
-            const civitaiData = JSON.parse(this.responseText);
-            if (this.status === 200) {
-                mod.processPhoto(civitaiData);
-            } else if ("error" in civitaiData) {
-                mod.processError(`The CivitAI API returned the error "${civitaiData["error"]["issues"][0]["message"]}"`);
-            } else {
-                mod.processError(`CivitAI Error: ${this.status}, ${this.statusText}`);
-                Log.error("CivitAI Error: ", this.responseText);
-            }
-        });
+		req.addEventListener("load", function () {
+			const civitaiData = JSON.parse(this.responseText);
+			if (this.status === 200) {
+				mod.processPhoto(civitaiData);
+			} else if ("error" in civitaiData) {
+				mod.processError(
+					`The CivitAI API returned the error "${civitaiData["error"]["issues"][0]["message"]}"`
+				);
+			} else {
+				mod.processError(`CivitAI Error: ${this.status}, ${this.statusText}`);
+				Log.error("CivitAI Error: ", this.responseText);
+			}
+		});
     
         req.addEventListener("error", function() {
             mod.processError("Could not connect to the CivitAI server.");
@@ -156,12 +161,16 @@ Module.register("MMM-CivitAI", {
         p.light = WBColor.hsv2Rgb({h:0, s:0, v:30});
 
         if (civitaiData.items && civitaiData.items.length > 0) {
-            const item = civitaiData.items[0];
+            const item = civitaiData.items[this.currentIndex];
             console.log("Processing photo data from CivitAI API:", item);
 
-            try {
-                p.authorName = item.username;
-                this.photoData = p;
+			try {
+				p.authorName = item.username;
+				p.username = item.username; // Add this line
+				p.meta = {
+					prompt: item.meta.prompt || '', // Add this line
+				};
+				this.photoData = p;
     
                 if (this.img === null) {
                     this.img = document.createElement("img");
@@ -198,7 +207,13 @@ Module.register("MMM-CivitAI", {
         }, this.config.updateInterval);
     },
 
-    
+	scheduleUpdate: function () {
+		setInterval(() => {
+		  this.currentIndex = (this.currentIndex + 1) % this.config.limit; // Cycle through photos
+		  this.fetchPhoto();
+		}, this.config.updateInterval);
+	  },
+
 	suspend: function() {
 		Log.info("Suspending MMM-CivitAI...");
 		this.setBackgroundTint({r:0, g:0, b:0});

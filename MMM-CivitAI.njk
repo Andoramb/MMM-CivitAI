@@ -10,19 +10,19 @@
 	    <div class="bottomfade" style="background-image: linear-gradient(rgba({{photoData.light.r}}, {{photoData.light.g}}, {{photoData.light.b}}, 0), black); height: {{ getHeight("region bottom bar") }}px;"></div>
   	{% endif %}
 
-	{% if config.showUsername or config.showPrompt %}
-    	<div class="civitai-message">
-      		{% if config.showUsername %}
-	    	    {{ photoData.username }}
-      		{% endif %}
-      		{% if config.showUsername and config.showPrompt %}
-        		:
-      		{% endif %}
-      		{% if config.showPrompt %}
-	    	    {{ photoData.meta.prompt }}
-     		{% endif %}
-    	</div>
-  	{% endif %}
+  {% if config.showUsername or config.showPrompt %}
+    <div class="civitai-message bottom_center">
+      {% if config.showUsername %}
+       {{ photoData.username }}
+      {% endif %}
+      {% if config.showUsername and config.showPrompt %}
+      :
+      {% endif %}
+      {% if config.showPrompt %}
+        {{ photoData.meta.prompt }}
+      {% endif %}
+    </div>
+  {% endif %}
 
 {% elif photoError %}
 	<div class="civitai-bg-error">
