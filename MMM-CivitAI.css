@@ -43,6 +43,16 @@
     z-index: 10;
   }
   
+  .civitai-message {
+    font-size: 18px; /* Adjust font size as needed */
+    color: white; /* Set the text color */
+    position: absolute;
+    bottom: -5px;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+  }
+    
   .civitai-bg-error {
     position: absolute;
     bottom: -5px;

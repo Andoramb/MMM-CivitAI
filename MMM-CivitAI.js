@@ -1,7 +1,6 @@
 Module.register("MMM-CivitAI", {
 	defaults: {
-		civitaiApiKey: "", // REQUIRED
-
+		civitaiApiKey: "", // REQUIRED? 
 		limit: 10,
 		postId: null,
 		modelId: null,
@@ -12,6 +11,8 @@ Module.register("MMM-CivitAI", {
 		sort: "Most Reactions",
 		period: "Day",
 		page: 1,
+		showPrompt: true,
+		showUsername: true,
 		//prompt: null,
 		//negativeprompt: null,
 
@@ -147,8 +148,6 @@ Module.register("MMM-CivitAI", {
     },
 
     processPhoto: function(civitaiData) {
-        //console.log("Processing photo data:", civitaiData);
-
         var p = {};
         let width = this.config.imageWidth == "auto" ? window.innerWidth : this.config.imageWidth;
         let height = this.config.imageHeight == "auto" ? window.innerHeight : this.config.imageHeight;
