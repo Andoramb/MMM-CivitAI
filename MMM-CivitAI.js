@@ -1,25 +1,20 @@
 Module.register("MMM-CivitAI", {
 	defaults: {
-		civitaiApiKey: "", // REQUIRED? 
 		limit: 10,
 		postId: null,
 		modelId: null,
 		modelVersionId: null,
 		username: null,
 		nsfw: "None",
-        //nsfwLevel: "None",
 		sort: "Most Reactions",
 		period: "Day",
 		page: 1,
 		showPrompt: true,
 		showUsername: true,
-		//prompt: null,
-		//negativeprompt: null,
-
-		updateInterval: 300 * 1000, // 5 min
-		resizeForScreen: true,
+		//prompt: null,  //not available in CivitAI API yet
+		//negativeprompt: null, //not available in CivitAI API yet
+		updateInterval: 3600 * 1000, // 1h
 		backgroundOpacity: 1,
-		brightImageOpacity: 0.85,
 		autoDimOn: false,
 		addBackgroundFade: ["top", "bottom"],
 		clearCacheOnStart: false,
@@ -45,11 +40,11 @@ Module.register("MMM-CivitAI", {
 	},
     
 	start: function() {
+		this.currentIndex = 0;
 		Log.info("Starting module: " + this.name);
 		if (this.config.clearCacheOnStart) {
 			this.sendSocketNotification("CLEAR_CACHE");
 		} else {
-			this.currentIndex = 0; 
 			this.fetchPhoto();
 			this.scheduleUpdate();
 		}
@@ -108,7 +103,6 @@ Module.register("MMM-CivitAI", {
             limit: this.config.limit,
             postId: this.config.postId || null,
             modelId: this.config.modelId || null,
-            modelVersionId: this.config.modelVersionId || null,
             username: this.config.username || null,
             nsfw: this.config.nsfw,
             nsfwLevel: this.config.nsfwLevel,            
@@ -117,7 +111,6 @@ Module.register("MMM-CivitAI", {
             page: this.config.page,
             //prompt: this.config.prompt || null,
             //negativeprompt: this.config.negativeprompt || null,
-            username: this.config.username || null,
         };
     
         // Remove null or undefined parameters
@@ -166,9 +159,10 @@ Module.register("MMM-CivitAI", {
 
 			try {
 				p.authorName = item.username;
-				p.username = item.username; // Add this line
+				p.username = item.username;
 				p.meta = {
-					prompt: item.meta.prompt || '', // Add this line
+					prompt: (item.meta.prompt.replace(/<.*?>/g, '')).replace(/,\s*,/g, ',') || '',
+					
 				};
 				this.photoData = p;
     

@@ -11,16 +11,9 @@
   	{% endif %}
 
   {% if config.showUsername or config.showPrompt %}
-    <div class="civitai-message bottom_center">
-      {% if config.showUsername %}
-       {{ photoData.username }}
-      {% endif %}
-      {% if config.showUsername and config.showPrompt %}
-      :
-      {% endif %}
-      {% if config.showPrompt %}
-        {{ photoData.meta.prompt }}
-      {% endif %}
+    <div class="civitai-message">
+      {% if config.showUsername %}{{ photoData.username }}{% endif %}{% if config.showUsername and config.showPrompt %}: {% endif %}
+      {% if config.showPrompt %}{{ photoData.meta.prompt }}{% endif %}
     </div>
   {% endif %}
 

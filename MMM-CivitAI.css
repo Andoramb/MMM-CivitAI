@@ -11,14 +11,18 @@
     top: 0;
     left: 0;
   }
-  
-  .civitaifade img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
-  
+
+  .civitai-message {
+    font-size: 1.3em;
+    color: white;
+    position: absolute;
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 80%;
+    z-index: 1;
+}
   .topfade,
   .bottomfade {
     position: absolute;
@@ -43,15 +47,7 @@
     z-index: 10;
   }
   
-  .civitai-message {
-    font-size: 26px; /* Adjust font size as needed */
-    color: white; /* Set the text color */
-    position: absolute;
-    bottom: 60px;
-    text-align: center;
-    width: 80%;
-    z-index: 10;
-  }
+
     
   .civitai-bg-error {
     position: absolute;
