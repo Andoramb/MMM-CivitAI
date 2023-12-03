@@ -1,13 +1,20 @@
 # Module: MMM-CivitAI
 
-MMM-CivitAI is a MagicMirror module that fetches and displays images from the CivitAI API, allowing you to showcase various images on your MagicMirror display.  
-This module is heavily inspired by [WallberryTheme](https://github.com/delightedCrow/WallberryTheme) module, huge thanks for @delightedCrow
+MMM-CivitAI is a MagicMirror module that fetches and displays images from the CivitAI API, allowing you to showcase various AI generated images on your MagicMirror display 🖼️ <br><br>
+This module is heavily inspired by [WallberryTheme](https://github.com/delightedCrow/WallberryTheme) module, 🙌 huge thanks for @delightedCrow
+
+As far as I've seen it the [CivitAI API](https://github.com/civitai/civitai/wiki/REST-API-Reference) does not require an api key for directly fetching images ✅
+
+## Screenshot
+<p align="center">
+<img style="width: 50%;" src="image/1.jpg">
+</p>
 
 * * *
 
 ## Installation
 
-Navigate to your MagicMirror's modules folder:
+Navigate to your MagicMirror's modules folder, ex.:
 
 ```bash
 cd ~/MagicMirror/modules
