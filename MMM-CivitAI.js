@@ -98,30 +98,29 @@ Module.register("MMM-CivitAI", {
 		}
 	},
 
-    fetchPhoto: function() {
-        const params = {
-            limit: this.config.limit,
-            postId: this.config.postId || null,
-            modelId: this.config.modelId || null,
-            username: this.config.username || null,
-            nsfw: this.config.nsfw,
-            nsfwLevel: this.config.nsfwLevel,            
-            sort: this.config.sort,
-            period: this.config.period,
-            page: this.config.page,
-            //prompt: this.config.prompt || null,
-            //negativeprompt: this.config.negativeprompt || null,
-        };
-    
-        // Remove null or undefined parameters
-        Object.keys(params).forEach(key => params[key] === null && delete params[key]);
-    
-        const url = "https://civitai.com/api/v1/images?" + new URLSearchParams(params).toString();
-        console.log("Fetching photo from CivitAI API:", url);
-        this.photoError = null;
-        var req = new XMLHttpRequest();
-        var mod = this;
-    
+	fetchPhoto: function() {
+		const params = {
+			limit: this.config.limit,
+			postId: this.config.postId || null,
+			modelId: this.config.modelId || null,
+			modelVersionId: this.config.modelVersionId || null,
+			username: this.config.username || null,
+			nsfw: this.config.nsfw,
+			sort: this.config.sort,
+			period: this.config.period,
+			page: this.config.page,
+			username: this.config.username || null,
+		};
+	
+		// Remove null or undefined parameters
+		Object.keys(params).forEach(key => params[key] === null && delete params[key]);
+	
+		const url = "https://civitai.com/api/v1/images?" + new URLSearchParams(params).toString();
+		console.log("Fetching photo from CivitAI API:", url);
+		this.photoError = null;
+		var req = new XMLHttpRequest();
+		var mod = this;
+	
 		req.addEventListener("load", function () {
 			const civitaiData = JSON.parse(this.responseText);
 			if (this.status === 200) {
@@ -135,15 +134,16 @@ Module.register("MMM-CivitAI", {
 				Log.error("CivitAI Error: ", this.responseText);
 			}
 		});
-    
-        req.addEventListener("error", function() {
-            mod.processError("Could not connect to the CivitAI server.");
-        });
-    
-        req.open("GET", url);
-        req.setRequestHeader("Content-Type", "application/json");
-        req.send();
-    },
+	
+		req.addEventListener("error", function() {
+			mod.processError("Could not connect to the CivitAI server.");
+		});
+	
+		req.open("GET", url);
+		req.setRequestHeader("Content-Type", "application/json");
+		req.send();
+	},
+	
 
     processPhoto: function(civitaiData) {
         var p = {};
@@ -160,10 +160,6 @@ Module.register("MMM-CivitAI", {
 			try {
 				p.authorName = item.username;
 				p.username = item.username;
-				p.meta = {
-					prompt: (item.meta.prompt.replace(/<.*?>/g, '')).replace(/,\s*,/g, ',') || '',
-					
-				};
 				this.photoData = p;
     
                 if (this.img === null) {
