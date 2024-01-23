@@ -160,6 +160,9 @@ Module.register("MMM-CivitAI", {
 			try {
 				p.authorName = item.username;
 				p.username = item.username;
+				p.meta = {
+					prompt: (item.meta && item.meta.prompt ? item.meta.prompt.replace(/<.*?>/g, '') : '') || '',
+				};
 				this.photoData = p;
     
                 if (this.img === null) {
