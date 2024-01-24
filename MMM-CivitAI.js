@@ -18,8 +18,9 @@ Module.register("MMM-CivitAI", {
 		autoDimOn: false,
 		addBackgroundFade: ["top", "bottom"],
 		clearCacheOnStart: false,
-		imageWidth: "auto",
-		imageHeight: "auto",
+		resizeMode: "height"
+		//imageWidth: "auto",  //not needed, reserverd for future update
+		//imageHeight: "auto",    //not needed, reserverd for future update
 	},
 
 	photoData: null,
@@ -147,8 +148,10 @@ Module.register("MMM-CivitAI", {
 
     processPhoto: function(civitaiData) {
         var p = {};
-        let width = this.config.imageWidth == "auto" ? window.innerWidth : this.config.imageWidth;
-        let height = this.config.imageHeight == "auto" ? window.innerHeight : this.config.imageHeight;
+		
+		// Not needed, reserved for future update
+        //let width = this.config.imageWidth == "auto" ? window.innerWidth : this.config.imageWidth;
+        //let height = this.config.imageHeight == "auto" ? window.innerHeight : this.config.imageHeight;
       
         p.dark = WBColor.hsv2Rgb({h:0, s:0, v:0});
         p.light = WBColor.hsv2Rgb({h:0, s:0, v:30});
