@@ -53,7 +53,8 @@ Example configuration:
                 showUsername: true,
                 nsfw: "None",
                 sort: "Most Reactions",
-                period: "Day"
+                period: "Day",
+                resizeMode: "height"
             }
         },
 ```
@@ -66,32 +67,31 @@ The following properties of `MMM-CivitAI` can be configured.
 
 **CivitAI API specific patameters**
 
-| Option | Type | Description |
+| Option | Default | Description |
 | --- | --- | --- |
-| `limit` | Number | Number of images to fetch (0 - 200)  <br>**Default value:** `10` |
-| `postId` | String | The ID of a post to get images from  <br>**Default value:** `null` |
-| `modelId` | String | The ID of a model to get images from (model gallery)  <br>**Default value:** `null` |
-| `username` | String | Filter images based on username  <br>**Default value:** `null` |
-| `nsfw` | String | NSFW filter option (`"None"`, `"Soft"`, `"Mature"`, `"X"`)  <br>**Default value:** `None` |
-| `sort` | String | Sorting option for images (`"Most Reactions"`, `"Most Comments"`, `"Newest"`)  <br>**Default value:** `Most Reactions` |
-| `period` | String | Time period for sorting images (`"AllTime"`, `"Year"`, `"Day"`, `"Week"`, `"Month"`)  <br>**Default value:** `Day` |
-| `page` | Number | Page number for paginated results  <br>**Default value:** `1` |
-| `showPrompt` | Boolean | Show image prompt in the module  <br>**Default value:** `true` |
-| `showUsername` | Boolean | Show username in the module  <br>**Default value:** `true` |
+| `limit` | `10` | Number of images to fetch (0 - 200)  |
+| `postId` |  `null` | The ID of a post to get images from  |
+| `modelId` | `null` | The ID of a model to get images from (model gallery)  |
+| `username` | `null` | Filter images based on username  |
+| `nsfw` | `"None"` | NSFW filter option (`"None"`, `"Soft"`, `"Mature"`, `"X"`)  |
+| `sort` | `"Most Reactions"` | Sorting option for images (`"Most Reactions"`, `"Most Comments"`, `"Newest"`)|
+| `period` | `"Day"` | Time period for sorting images (`"AllTime"`, `"Year"`, `"Day"`, `"Week"`, `"Month"`)|
+| `page` | `1` | Page number for paginated results|
+| `showPrompt` | `true` | Show image prompt in the module  |
+| `showUsername` | `true` | Show username in the module  |
+| `resizeMode` | `"height"` | Fit the image to the `"height"` or `"width"` of screen |
 
   
 
 **Module formatting specific parameters**
 
-| Option | Type | Description |
+| Option | Default | Description |
 | --- | --- | --- |
-| `updateInterval` | Number | How often to fetch new images (milliseconds)  <br>**Default value:** `3600*1000` |
-| `backgroundOpacity` | Number | Opacity of the background image (0.0 to 1.0)  <br>**Default value:** `1` |
-| `autoDimOn` | Boolean | Automatically dim bright images  <br>**Default value:** `false` |
-| `addBackgroundFade` | Array | Adds darker gradient backgrounds to the top bar region and/or bottom bar regions of MagicMirror (helps with readability for bright or busy background images).  <br>  <br>**Possible values:** `"top"` will add a gradient background to the top bar region, `"bottom"` will add a gradient background to the bottom bar region. Set to an empty list to remove all gradients. Default value: `["top", "bottom"]`  <br>**Default value:** `true` |
-| `clearCacheOnStart` | Boolean | Clear Electron's cache on startup  <br>**Default value:** `false` |
-| `imageWidth` | String | Width of displayed images ("auto" or a specific width in pixels)  <br>**Default value:** `auto` |
-| `imageHeight` | String | Height of displayed images ("auto" or a specific height in pixels)  <br>**Default value:** `auto` |
+| `updateInterval` | `3600*1000` | How often to fetch new images (milliseconds)|
+| `backgroundOpacity` | `1` | Opacity of the background image (0.0 to 1.0)|
+| `autoDimOn` | `false` | Automatically dim bright images |
+| `addBackgroundFade` | `["top", "bottom"]` | Adds darker gradient backgrounds to the top bar region and/or bottom bar regions of MagicMirror (helps with readability for bright or busy background images). <br>**Possible values:** `"top"` and/or `"bottom"`. Set to an empty list to remove all gradients.|
+| `clearCacheOnStart` | `false` | Clear Electron's cache on startup|
 
   
 
