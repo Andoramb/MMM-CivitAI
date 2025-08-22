@@ -81,6 +81,8 @@ The following properties of `MMM-CivitAI` can be configured.
 | `showUsername` | `true` | Show username in the module  |
 | `resizeMode` | `"height"` | Fit the image to the `"height"` or `"width"` of screen |
 
+| `type` | `"imagevideo"` | Media type filter: `"image"`, `"video"`, or `"imagevideo"` (default). When set to `"video"` the module will try to show videos and autoplay/loop them as background media. |
+
   
 
 **Module formatting specific parameters**

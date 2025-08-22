@@ -1,8 +1,42 @@
 {% if photoElement %}
     {{ setBackgroundTint(photoData.dark) }}
     
-    <img src="{{ photoElement.src }}" class="civitai-bg {% if config.resizeMode == 'width' %}width-mode{% endif %} civitai-bg-effect " style="opacity: {{ config.brightImageOpacity if photoData.isLight else config.backgroundOpacity }};">
-    <img src="{{ photoElement.src }}" class="civitai-bg {% if config.resizeMode == 'width' %}width-mode{% endif %}" style="opacity: {{ config.brightImageOpacity if photoData.isLight else config.backgroundOpacity }};">
+    {# If media is video, render a video tag; otherwise render images as before #}
+    {% if photoData.isVideo %}
+        <div class="video-container">
+            <iframe 
+                src="data:text/html;charset=utf-8,
+                    <html>
+                        <head>
+                            <style>
+                                body { margin: 0; overflow: hidden; }
+                                video {
+                                    width: 100vw;
+                                    height: 100vh;
+                                    object-fit: cover;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <video 
+                                src='{{ photoElement.src }}' 
+                                autoplay loop muted playsinline 
+                                style='opacity: {{ config.backgroundOpacity }};'>
+                            </video>
+                            <script>
+                                document.querySelector('video').play();
+                            </script>
+                        </body>
+                    </html>"
+                class="civitai-bg {% if config.resizeMode == 'width' %}width-mode{% endif %}"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+    {% else %}
+        <img src="{{ photoElement.src }}" class="civitai-bg {% if config.resizeMode == 'width' %}width-mode{% endif %} civitai-bg-effect " style="opacity: {{ config.brightImageOpacity if photoData.isLight else config.backgroundOpacity }};">
+        <img src="{{ photoElement.src }}" class="civitai-bg {% if config.resizeMode == 'width' %}width-mode{% endif %}" style="opacity: {{ config.brightImageOpacity if photoData.isLight else config.backgroundOpacity }};">
+    {% endif %}
 
     {% if "top" in config.addBackgroundFade %}
         <div class="topfade" style="background-image: linear-gradient(rgba({{photoData.dark.r}}, {{photoData.dark.g}}, {{photoData.dark.b}}, 0.7), rgba({{photoData.light.r}}, {{photoData.light.g}}, {{photoData.light.b}}, 0)); height: {{ getHeight("region top bar") }}px;"></div>
